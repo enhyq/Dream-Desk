@@ -1,4 +1,4 @@
-[submodule "godot-cpp"]
+[submodule "GDExtension/godot-cpp"]
 	path = GDExtension/godot-cpp
 	url = https://github.com/godotengine/godot-cpp
 	branch = 4.4
