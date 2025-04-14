@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://dixlxbrs08fj2"]
+
+[ext_resource type="Script" uid="uid://cuh1mfn6mrcts" path="res://main.gd" id="1_ig7tw"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("1_ig7tw")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 710.0
+offset_bottom = 499.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 462.0
+offset_top = 111.0
+offset_right = 940.0
+offset_bottom = 435.0
+color = Color(0.952941, 0.709804, 0.905882, 0.827451)
