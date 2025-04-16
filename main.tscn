@@ -1,32 +1,263 @@
-[gd_scene load_steps=3 format=3 uid="uid://dixlxbrs08fj2"]
+[gd_scene load_steps=7 format=3 uid="uid://dixlxbrs08fj2"]
 
 [ext_resource type="Script" uid="uid://cuh1mfn6mrcts" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://bg3qdlr0j4i7e" path="res://icon.svg" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://fkdxgnv14gc3" path="res://level_ui.gd" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://dit2ph6hgqdsc" path="res://sprite_2d.gd" id="4_1bvp3"]
+
+[sub_resource type="Theme" id="Theme_0xm2m"]
+Button/colors/font_color = Color(0.187894, 0.187893, 0.187893, 1)
+Button/font_sizes/font_size = 29
+
+[sub_resource type="LabelSettings" id="LabelSettings_ig7tw"]
+font_size = 20
+font_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 0.98
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+theme = SubResource("Theme_0xm2m")
 script = ExtResource("1_ig7tw")
+metadata/_edit_lock_ = true
 
 [node name="TransparentNode" type="TransparentNode" parent="."]
 
-[node name="TextureRect" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
-offset_right = 710.0
-offset_bottom = 499.0
-
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = 462.0
-offset_top = 111.0
-offset_right = 940.0
-offset_bottom = 435.0
-color = Color(0.952941, 0.709804, 0.905882, 0.827451)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -429.0
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0.664947, 0.750894, 0.981169, 1)
+metadata/_edit_use_anchors_ = true
 
-[node name="GDExample" type="GDExample" parent="."]
-position = Vector2(579, 122)
-scale = Vector2(1.82813, 1.17188)
-texture = ExtResource("2_0xm2m")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="GDExample2" type="GDExample" parent="."]
-position = Vector2(287, 199)
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.98
+offset_left = -429.0
+
+[node name="TitleBar" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/TitleBar"]
+layout_mode = 2
+text = "Dream Desk"
+label_settings = SubResource("LabelSettings_ig7tw")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/TitleBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/VBoxContainer/TitleBar/HBoxContainer"]
+layout_mode = 2
+text = "_"
+flat = true
+
+[node name="Button2" type="Button" parent="CanvasLayer/VBoxContainer/TitleBar/HBoxContainer"]
+layout_mode = 2
+text = "/"
+flat = true
+
+[node name="Button3" type="Button" parent="CanvasLayer/VBoxContainer/TitleBar/HBoxContainer"]
+layout_mode = 2
+text = "#"
+flat = true
+
+[node name="Button4" type="Button" parent="CanvasLayer/VBoxContainer/TitleBar/HBoxContainer"]
+layout_mode = 2
+text = "X"
+flat = true
+
+[node name="StateUI" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LevelUI" type="MarginContainer" parent="CanvasLayer/VBoxContainer/StateUI"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_h2yge")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/StateUI/LevelUI"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/VBoxContainer/StateUI/LevelUI/HBoxContainer"]
+layout_mode = 2
 texture = ExtResource("2_0xm2m")
+expand_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/VBoxContainer/StateUI/LevelUI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 80.0
+
+[node name="Money" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/StateUI"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/VBoxContainer/StateUI/Money"]
+layout_mode = 2
+texture = ExtResource("2_0xm2m")
+expand_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/VBoxContainer/StateUI/Money"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/VBoxContainer/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(429, 476)
+
+[node name="Node2D" type="Node2D" parent="CanvasLayer/VBoxContainer/SubViewportContainer/SubViewport"]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/VBoxContainer/SubViewportContainer/SubViewport/Node2D"]
+position = Vector2(221, 246)
+texture = ExtResource("2_0xm2m")
+script = ExtResource("4_1bvp3")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_0xm2m")
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "button 1"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+texture_normal = ExtResource("2_0xm2m")
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "button 1"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+texture_normal = ExtResource("2_0xm2m")
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "button 1"
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "music title"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Button" type="Button" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+value = 50.0
+
+[node name="Button3" type="Button" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Button4" type="Button" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_0xm2m")
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "p"
+
+[node name="Button2" type="Button" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "p"
+
+[node name="Button3" type="Button" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "p"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+texture_normal = ExtResource("2_0xm2m")
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_0xm2m")
+
+[node name="TextureButton2" type="TextureButton" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_0xm2m")
+
+[node name="TextureButton3" type="TextureButton" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_0xm2m")
