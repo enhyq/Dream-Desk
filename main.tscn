@@ -1,263 +1,542 @@
-[gd_scene load_steps=7 format=3 uid="uid://dixlxbrs08fj2"]
+[gd_scene load_steps=8 format=3 uid="uid://dixlxbrs08fj2"]
 
 [ext_resource type="Script" uid="uid://cuh1mfn6mrcts" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://bg3qdlr0j4i7e" path="res://icon.svg" id="2_0xm2m"]
-[ext_resource type="Script" uid="uid://fkdxgnv14gc3" path="res://level_ui.gd" id="2_h2yge"]
 [ext_resource type="Script" uid="uid://dit2ph6hgqdsc" path="res://sprite_2d.gd" id="4_1bvp3"]
 
 [sub_resource type="Theme" id="Theme_0xm2m"]
-Button/colors/font_color = Color(0.187894, 0.187893, 0.187893, 1)
 Button/font_sizes/font_size = 29
+Button2/base_type = &"Button"
+Button2/constants/icon_max_width = 50
+Button2/font_sizes/font_size = 15
+Button2/icons/icon = ExtResource("2_0xm2m")
 
-[sub_resource type="LabelSettings" id="LabelSettings_ig7tw"]
-font_size = 20
-font_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2yge"]
+bg_color = Color(0.865537, 0.865537, 0.865537, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
+bg_color = Color(0.336459, 0.61617, 0.91064, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
+bg_color = Color(0.0409156, 0, 0.965074, 0.223529)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="Main" type="Control"]
+custom_minimum_size = Vector2(430, 0)
 layout_mode = 3
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 0.98
-grow_horizontal = 2
+offset_bottom = -0.400024
+grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 8
 theme = SubResource("Theme_0xm2m")
 script = ExtResource("1_ig7tw")
-metadata/_edit_lock_ = true
 
 [node name="TransparentNode" type="TransparentNode" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="BackgroundTexture" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -429.0
-grow_horizontal = 0
+grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.664947, 0.750894, 0.981169, 1)
-metadata/_edit_use_anchors_ = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_left = 1.0
+[node name="ColorRect" type="ColorRect" parent="BackgroundTexture"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.98
-offset_left = -429.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.215686, 0.670588, 0.94902, 1)
 
-[node name="TitleBar" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleBar" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/TitleBar"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/TitleBar"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Label" type="Label" parent="VBoxContainer/TitleBar/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Dream Desk"
-label_settings = SubResource("LabelSettings_ig7tw")
+vertical_alignment = 1
+clip_text = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/TitleBar"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/TitleBar"]
+layout_mode = 2
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TitleBar/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/VBoxContainer/TitleBar/HBoxContainer"]
+[node name="MinimizeButton" type="Button" parent="VBoxContainer/TitleBar/MarginContainer2/HBoxContainer"]
 layout_mode = 2
-text = "_"
+size_flags_vertical = 4
+text = "➖"
 flat = true
 
-[node name="Button2" type="Button" parent="CanvasLayer/VBoxContainer/TitleBar/HBoxContainer"]
+[node name="ShrinkButton" type="Button" parent="VBoxContainer/TitleBar/MarginContainer2/HBoxContainer"]
 layout_mode = 2
-text = "/"
+size_flags_vertical = 4
+text = "↙️"
 flat = true
 
-[node name="Button3" type="Button" parent="CanvasLayer/VBoxContainer/TitleBar/HBoxContainer"]
+[node name="SettingButton" type="Button" parent="VBoxContainer/TitleBar/MarginContainer2/HBoxContainer"]
 layout_mode = 2
-text = "#"
+size_flags_vertical = 4
+text = "🔧"
 flat = true
 
-[node name="Button4" type="Button" parent="CanvasLayer/VBoxContainer/TitleBar/HBoxContainer"]
+[node name="ExitButton" type="Button" parent="VBoxContainer/TitleBar/MarginContainer2/HBoxContainer"]
 layout_mode = 2
-text = "X"
+size_flags_vertical = 4
+text = "✖️"
 flat = true
 
-[node name="StateUI" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="StateUI" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="LevelUI" type="MarginContainer" parent="CanvasLayer/VBoxContainer/StateUI"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/StateUI"]
 layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("2_h2yge")
+size_flags_horizontal = 2
+theme_override_constants/separation = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/StateUI/LevelUI"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/VBoxContainer/StateUI/LevelUI/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/StateUI/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("2_0xm2m")
 expand_mode = 2
+stretch_mode = 4
 
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/VBoxContainer/StateUI/LevelUI/HBoxContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/MarginContainer/StateUI/HBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 value = 80.0
 
-[node name="Money" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/StateUI"]
+[node name="Money" type="HBoxContainer" parent="VBoxContainer/MarginContainer/StateUI"]
 layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 0
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/VBoxContainer/StateUI/Money"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/StateUI/Money"]
 layout_mode = 2
 texture = ExtResource("2_0xm2m")
 expand_mode = 2
+stretch_mode = 4
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/VBoxContainer/StateUI/Money"]
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/MarginContainer/StateUI/Money"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/VBoxContainer"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/VBoxContainer/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(429, 476)
+size = Vector2i(430, 552)
+render_target_update_mode = 4
 
-[node name="Node2D" type="Node2D" parent="CanvasLayer/VBoxContainer/SubViewportContainer/SubViewport"]
+[node name="Node2D" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport"]
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/VBoxContainer/SubViewportContainer/SubViewport/Node2D"]
+[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Node2D"]
 position = Vector2(221, 246)
 texture = ExtResource("2_0xm2m")
 script = ExtResource("4_1bvp3")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+[node name="LabeledTextureButton" type="MarginContainer" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
 
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton"]
 layout_mode = 2
-texture_normal = ExtResource("2_0xm2m")
+theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+[node name="TextureButton" type="TextureRect" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton/DecorButton"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("2_0xm2m")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton/DecorButton"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "button 1"
+text = "Decor"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+[node name="LabeledTextureButton2" type="MarginContainer" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
 
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton2"]
 layout_mode = 2
-texture_normal = ExtResource("2_0xm2m")
+theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+[node name="TextureButton" type="TextureRect" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton2/DecorButton"]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-size_flags_horizontal = 4
-text = "button 1"
+texture = ExtResource("2_0xm2m")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer3"]
-layout_mode = 2
-texture_normal = ExtResource("2_0xm2m")
-
-[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer3"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton2/DecorButton"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "button 1"
+text = "Activity"
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/VBoxContainer"]
+[node name="LabeledTextureButton3" type="MarginContainer" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
 
-[node name="Panel" type="Panel" parent="CanvasLayer/VBoxContainer/PanelContainer"]
+[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton3"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/PanelContainer"]
+[node name="TextureButton" type="TextureRect" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton3/DecorButton"]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+texture = ExtResource("2_0xm2m")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton3/DecorButton"]
 layout_mode = 2
 size_flags_horizontal = 4
+text = "Pet"
+
+[node name="LabeledTextureButton4" type="MarginContainer" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton4"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureButton" type="TextureRect" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton4/DecorButton"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("2_0xm2m")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton4/DecorButton"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Wardrobe"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h2yge")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer2/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1bvp3")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "music title"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("2_0xm2m")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="Button" type="Button" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Button" type="TextureButton" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
+texture_normal = ExtResource("2_0xm2m")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="Button2" type="Button" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Button5" type="TextureButton" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
+texture_normal = ExtResource("2_0xm2m")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="HSlider" type="HSlider" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="HSlider" type="HSlider" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_vertical = 4
 value = 50.0
 
-[node name="Button3" type="Button" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Button2" type="TextureButton" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
+texture_normal = ExtResource("2_0xm2m")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="Button4" type="Button" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Button6" type="TextureButton" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
+texture_normal = ExtResource("2_0xm2m")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="LabeledTextureButton" type="MarginContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
 
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/LabeledTextureButton"]
 layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureButton" type="TextureRect" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/LabeledTextureButton/DecorButton"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("2_0xm2m")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/LabeledTextureButton/DecorButton"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Decor"
+
+[node name="Button4" type="TextureButton" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_vertical = 4
 texture_normal = ExtResource("2_0xm2m")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_vertical = 4
-text = "p"
-
-[node name="Button2" type="Button" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="Button5" type="TextureButton" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_vertical = 4
-text = "p"
-
-[node name="Button3" type="Button" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_vertical = 4
-text = "p"
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/VBoxContainer2"]
-layout_mode = 2
 texture_normal = ExtResource("2_0xm2m")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+[node name="Button6" type="TextureButton" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
+size_flags_vertical = 4
+texture_normal = ExtResource("2_0xm2m")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+[node name="LabeledTextureButton2" type="MarginContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/LabeledTextureButton2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureButton" type="TextureRect" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/LabeledTextureButton2/DecorButton"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("2_0xm2m")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/LabeledTextureButton2/DecorButton"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Decor"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("2_0xm2m")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 20
 
-[node name="TextureButton2" type="TextureButton" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
-texture_normal = ExtResource("2_0xm2m")
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_lquwl")
 
-[node name="TextureButton3" type="TextureButton" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/PanelContainer"]
 layout_mode = 2
-texture_normal = ExtResource("2_0xm2m")
+theme_override_constants/margin_top = 5
+
+[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="TextureButton" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/DecorButton"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("2_0xm2m")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/DecorButton"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Decor"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_lquwl")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer2/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+
+[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="TextureButton" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/DecorButton"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("2_0xm2m")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/DecorButton"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Decor"
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/MarginContainer3"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_lquwl")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer3/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+
+[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer3/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="TextureButton" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer3/PanelContainer/MarginContainer/DecorButton"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("2_0xm2m")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer3/PanelContainer/MarginContainer/DecorButton"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Decor"
