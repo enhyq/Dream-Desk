@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://chhsiijtxvi7q"]
+
+[ext_resource type="Script" uid="uid://cspdpigvaoqlk" path="res://labeled_texture_button.gd" id="1_fhgdp"]
+[ext_resource type="Texture2D" uid="uid://bg3qdlr0j4i7e" path="res://icon.svg" id="1_ujm50"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_h2yge"]
+font_size = 10
+
+[node name="LabeledTextureButton" type="MarginContainer" groups=["ui_button"]]
+offset_right = 60.0
+offset_bottom = 64.0
+pivot_offset = Vector2(30, 32)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+script = ExtResource("1_fhgdp")
+texture = ExtResource("1_ujm50")
+child_variable = "sample"
+
+[node name="DecorButton" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureButton" type="TextureRect" parent="DecorButton"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("1_ujm50")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="DecorButton"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "sample"
+label_settings = SubResource("LabelSettings_h2yge")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
