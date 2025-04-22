@@ -4,7 +4,7 @@
 .uid
 *.uid
 *.tmp
-GDExtension/src/*.import
+*.import
 GDExtension/src/*.obj
 ~*.dll
 .sconsign.dblite
