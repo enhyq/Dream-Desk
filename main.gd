@@ -20,7 +20,6 @@ func _on_exit_button_pressed():
 
 
 func _on_minimize_button_pressed():
-	# minimize 했다가 다시 불러오면 투명 배경이 클릭이 안된다
 	get_tree().root.mode = Window.MODE_MINIMIZED
 
 func _on_window_resized():
