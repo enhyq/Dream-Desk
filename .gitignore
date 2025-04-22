@@ -8,3 +8,4 @@
 GDExtension/src/*.obj
 ~*.dll
 .sconsign.dblite
+exports/
