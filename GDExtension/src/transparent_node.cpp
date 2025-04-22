@@ -39,27 +39,23 @@ void TransparentNode::set_mouse_passthrough(bool enabled) {
             return;
         }
 
-        if (enabled == mouse_passthrough_enabled)
-            return; //prevent unnecessary calls
+        // if (enabled == mouse_passthrough_enabled)
+        //     return; //prevent unnecessary calls
         
-        // below is one time job ???
-        // Use GetWindowLongPtr for 64-bit compatibility
         LONG_PTR exStyle = GetWindowLongPtr(hWnd, GWL_EXSTYLE); 
 
         if (enabled) {
-            exStyle |= WS_EX_LAYERED | WS_EX_TRANSPARENT;
-            // SetWindowLongPtr(hWnd, GWL_EXSTYLE, exStyle);
+            // exStyle |= WS_EX_LAYERED | WS_EX_TRANSPARENT;
             SetWindowLongPtr(hWnd, GWL_EXSTYLE, WS_EX_LAYERED);
-            SetLayeredWindowAttributes(hWnd, 0, 0, LWA_COLORKEY); // Important:  Make a color transparent!  Key out color 0.
-            // Try to make it top most.
-            // SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+            SetLayeredWindowAttributes(hWnd, 0, 0, LWA_COLORKEY);
 
+            // Need to redraw the window to get the click through functionality persist after minimizing -> maximizing
+            RedrawWindow(hWnd, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN);
             UtilityFunctions::print("Mouse Pass-Through Enabled");
         } else {
             exStyle &= ~(WS_EX_LAYERED | WS_EX_TRANSPARENT);
             SetWindowLongPtr(hWnd, GWL_EXSTYLE, exStyle);
-            // Consider removing LWA_COLORKEY here.
-            // SetWindowPos(hWnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+            SetWindowPos(hWnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED | SWP_SHOWWINDOW);
             UtilityFunctions::print("Mouse Pass-Through Disabled");
         }
         mouse_passthrough_enabled = enabled;
