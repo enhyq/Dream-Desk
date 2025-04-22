@@ -1,8 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://dixlxbrs08fj2"]
+[gd_scene load_steps=22 format=3 uid="uid://dixlxbrs08fj2"]
 
 [ext_resource type="Script" uid="uid://cuh1mfn6mrcts" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://bg3qdlr0j4i7e" path="res://icon.svg" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://dit2ph6hgqdsc" path="res://sprite_2d.gd" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://djtay3q4ea4th" path="res://music_controller.gd" id="4_lquwl"]
+[ext_resource type="PackedScene" uid="uid://chhsiijtxvi7q" path="res://labeled_texture_button.tscn" id="4_yaehf"]
+[ext_resource type="AudioStream" uid="uid://dd1gu77o68s3x" path="res://assets/music/Colorful-Flowers(chosic.com).mp3" id="5_7mycd"]
+[ext_resource type="AudioStream" uid="uid://o8optuwapp6c" path="res://assets/music/barradeen-bedtime-after-a-coffee(chosic.com).mp3" id="5_272bh"]
+[ext_resource type="AudioStream" uid="uid://cjgiggnovmgwl" path="res://assets/music/Morning-Routine-Lofi-Study-Music(chosic.com).mp3" id="7_5vw27"]
+[ext_resource type="Script" uid="uid://digatf72p8uhu" path="res://music_panel.gd" id="8_2cqfq"]
+[ext_resource type="Texture2D" uid="uid://dtdcyd44kkclj" path="res://assets/images/Shuffle.png" id="8_w48qg"]
+[ext_resource type="Texture2D" uid="uid://bbcie2317186f" path="res://assets/images/Mute.png" id="9_vivmo"]
+[ext_resource type="Texture2D" uid="uid://cuqggw8m8wsns" path="res://assets/images/VolumeOn.png" id="10_2cqfq"]
+[ext_resource type="Texture2D" uid="uid://tktpu4ud3qcr" path="res://assets/images/Repeat.png" id="11_yaehf"]
+[ext_resource type="Texture2D" uid="uid://dhlahoyl4buxv" path="res://assets/images/Prev.png" id="13_2cqfq"]
+[ext_resource type="Texture2D" uid="uid://qac3cv753ari" path="res://assets/images/Play.png" id="13_cegan"]
+[ext_resource type="Texture2D" uid="uid://x4ss45m2vyv7" path="res://assets/images/Pause.png" id="14_2cqfq"]
+[ext_resource type="Texture2D" uid="uid://mw80jhpy0p4p" path="res://assets/images/Next.png" id="16_yaehf"]
 
 [sub_resource type="Theme" id="Theme_0xm2m"]
 Button/font_sizes/font_size = 29
@@ -11,8 +25,14 @@ Button2/constants/icon_max_width = 50
 Button2/font_sizes/font_size = 15
 Button2/icons/icon = ExtResource("2_0xm2m")
 
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_2cqfq"]
+stream_count = 3
+stream_0 = ExtResource("5_272bh")
+stream_1 = ExtResource("5_7mycd")
+stream_2 = ExtResource("7_5vw27")
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2yge"]
-bg_color = Color(0.865537, 0.865537, 0.865537, 1)
+bg_color = Color(0.845515, 0.882721, 0.807342, 0.584314)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -24,17 +44,6 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
-bg_color = Color(0.0409156, 0, 0.965074, 0.223529)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
 
 [node name="Main" type="Control"]
 custom_minimum_size = Vector2(430, 0)
@@ -51,7 +60,7 @@ script = ExtResource("1_ig7tw")
 
 [node name="TransparentNode" type="TransparentNode" parent="."]
 
-[node name="BackgroundTexture" type="TextureRect" parent="."]
+[node name="BackgroundTextures" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,7 +68,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="BackgroundTexture"]
+[node name="ColorRect" type="ColorRect" parent="BackgroundTextures"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -176,10 +185,13 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="VBoxContainer/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(430, 552)
+size = Vector2i(430, 569)
 render_target_update_mode = 4
 
+[node name="Node3D" type="Node3D" parent="VBoxContainer/SubViewportContainer/SubViewport"]
+
 [node name="Node2D" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport"]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Node2D"]
 position = Vector2(221, 246)
@@ -190,353 +202,192 @@ script = ExtResource("4_1bvp3")
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="LabeledTextureButton" type="MarginContainer" parent="VBoxContainer/HBoxContainer2"]
+[node name="LabeledTextureButton" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("4_yaehf")]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
+child_variable = "Decor"
 
-[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton"]
+[node name="LabeledTextureButton2" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("4_yaehf")]
 layout_mode = 2
-theme_override_constants/separation = 0
+child_variable = "Activity"
 
-[node name="TextureButton" type="TextureRect" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton/DecorButton"]
-custom_minimum_size = Vector2(50, 50)
+[node name="LabeledTextureButton3" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("4_yaehf")]
 layout_mode = 2
-texture = ExtResource("2_0xm2m")
-expand_mode = 1
-stretch_mode = 5
+child_variable = "Pet"
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton/DecorButton"]
+[node name="LabeledTextureButton4" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("4_yaehf")]
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Decor"
+child_variable = "Wardrobe"
 
-[node name="LabeledTextureButton2" type="MarginContainer" parent="VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
-
-[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton2"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="TextureButton" type="TextureRect" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton2/DecorButton"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("2_0xm2m")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton2/DecorButton"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Activity"
-
-[node name="LabeledTextureButton3" type="MarginContainer" parent="VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
-
-[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton3"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="TextureButton" type="TextureRect" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton3/DecorButton"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("2_0xm2m")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton3/DecorButton"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Pet"
-
-[node name="LabeledTextureButton4" type="MarginContainer" parent="VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
-
-[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton4"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="TextureButton" type="TextureRect" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton4/DecorButton"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("2_0xm2m")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/LabeledTextureButton4/DecorButton"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Wardrobe"
-
-[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+[node name="MusicController" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
+script = ExtResource("4_lquwl")
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MarginContainer2"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="VBoxContainer/MusicController"]
+stream = SubResource("AudioStreamPlaylist_2cqfq")
+autoplay = true
+bus = &"BGM"
+
+[node name="MusicPanel" type="PanelContainer" parent="VBoxContainer/MusicController"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_h2yge")
+script = ExtResource("8_2cqfq")
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer2/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MusicController/MusicPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1bvp3")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/MarginContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 5
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HBoxContainer/MarginContainer"]
+[node name="MusicTitle" type="Label" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "music title"
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 texture = ExtResource("2_0xm2m")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Button" type="TextureButton" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ShuffleButton" type="TextureButton" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
-texture_normal = ExtResource("2_0xm2m")
+toggle_mode = true
+texture_normal = ExtResource("8_w48qg")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Button5" type="TextureButton" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MuteButton" type="TextureButton" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
-texture_normal = ExtResource("2_0xm2m")
+texture_normal = ExtResource("9_vivmo")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="VolumeSlider" type="HSlider" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 4
-value = 50.0
+max_value = 1.0
+step = 0.01
+value = 0.1
 
-[node name="Button2" type="TextureButton" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MaxVolumeButton" type="TextureButton" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
-texture_normal = ExtResource("2_0xm2m")
+texture_normal = ExtResource("10_2cqfq")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Button6" type="TextureButton" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LoopButton" type="TextureButton" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
-texture_normal = ExtResource("2_0xm2m")
+toggle_mode = true
+texture_normal = ExtResource("11_yaehf")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="LabeledTextureButton" type="MarginContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="LabeledTextureButton3" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("4_yaehf")]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
+size_flags_horizontal = 6
+child_variable = "Album"
 
-[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/LabeledTextureButton"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="TextureButton" type="TextureRect" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/LabeledTextureButton/DecorButton"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("2_0xm2m")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/LabeledTextureButton/DecorButton"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Decor"
-
-[node name="Button4" type="TextureButton" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="PreviousMusic" type="TextureButton" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_vertical = 4
-texture_normal = ExtResource("2_0xm2m")
+texture_normal = ExtResource("13_2cqfq")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Button5" type="TextureButton" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="PlayPauseMusic" type="TextureButton" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_vertical = 4
-texture_normal = ExtResource("2_0xm2m")
+toggle_mode = true
+texture_normal = ExtResource("14_2cqfq")
+texture_pressed = ExtResource("13_cegan")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Button6" type="TextureButton" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="NextMusic" type="TextureButton" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_vertical = 4
-texture_normal = ExtResource("2_0xm2m")
+texture_normal = ExtResource("16_yaehf")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="LabeledTextureButton2" type="MarginContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="LabeledTextureButton4" parent="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("4_yaehf")]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
-
-[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/LabeledTextureButton2"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="TextureButton" type="TextureRect" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/LabeledTextureButton2/DecorButton"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("2_0xm2m")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/LabeledTextureButton2/DecorButton"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Decor"
+size_flags_horizontal = 6
+child_variable = "Sound"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 120)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="LabeledTextureButton" parent="VBoxContainer/HBoxContainer" instance=ExtResource("4_yaehf")]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 20
+size_flags_horizontal = 6
+child_variable = "MEMO"
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/MarginContainer"]
+[node name="LabeledTextureButton2" parent="VBoxContainer/HBoxContainer" instance=ExtResource("4_yaehf")]
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_lquwl")
+size_flags_horizontal = 6
+child_variable = "To-Do"
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/PanelContainer"]
+[node name="LabeledTextureButton3" parent="VBoxContainer/HBoxContainer" instance=ExtResource("4_yaehf")]
 layout_mode = 2
-theme_override_constants/margin_top = 5
+size_flags_horizontal = 6
+child_variable = "Timer"
 
-[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 0
-
-[node name="TextureButton" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/DecorButton"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("2_0xm2m")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/DecorButton"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Decor"
-
-[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 20
-
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/MarginContainer2"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_lquwl")
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer2/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 5
-
-[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 0
-
-[node name="TextureButton" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/DecorButton"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("2_0xm2m")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/DecorButton"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Decor"
-
-[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 20
-
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/MarginContainer3"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_lquwl")
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer3/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 5
-
-[node name="DecorButton" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer3/PanelContainer/MarginContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 0
-
-[node name="TextureButton" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer3/PanelContainer/MarginContainer/DecorButton"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("2_0xm2m")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer3/PanelContainer/MarginContainer/DecorButton"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Decor"
+[connection signal="pressed" from="VBoxContainer/TitleBar/MarginContainer2/HBoxContainer/MinimizeButton" to="." method="_on_minimize_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/TitleBar/MarginContainer2/HBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="finished" from="VBoxContainer/MusicController/AudioStreamPlayer" to="VBoxContainer/MusicController" method="_on_audio_stream_player_finished"]
+[connection signal="toggled" from="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer/ShuffleButton" to="VBoxContainer/MusicController" method="_on_shuffle_button_toggled"]
+[connection signal="pressed" from="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer/MuteButton" to="VBoxContainer/MusicController" method="_on_mute_button_pressed"]
+[connection signal="value_changed" from="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer/VolumeSlider" to="VBoxContainer/MusicController" method="_on_volume_slider_value_changed"]
+[connection signal="pressed" from="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer/MaxVolumeButton" to="VBoxContainer/MusicController" method="_on_max_volume_button_pressed"]
+[connection signal="toggled" from="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer/LoopButton" to="VBoxContainer/MusicController" method="_on_loop_button_toggled"]
+[connection signal="pressed" from="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer2/PreviousMusic" to="VBoxContainer/MusicController" method="_on_previous_music_pressed"]
+[connection signal="pressed" from="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer2/PlayPauseMusic" to="VBoxContainer/MusicController" method="_on_play_pause_music_pressed"]
+[connection signal="pressed" from="VBoxContainer/MusicController/MusicPanel/MarginContainer/VBoxContainer/HBoxContainer2/NextMusic" to="VBoxContainer/MusicController" method="_on_next_music_pressed"]
