@@ -2,3 +2,9 @@
 .godot/
 /android/
 .uid
+*.uid
+*.tmp
+GDExtension/src/*.import
+GDExtension/src/*.obj
+~*.dll
+.sconsign.dblite
